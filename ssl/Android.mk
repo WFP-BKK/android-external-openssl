@@ -45,24 +45,24 @@ common_C_INCLUDES += \
 
 # static library
 # =====================================================
+#
+#include $(CLEAR_VARS)
+#LOCAL_SRC_FILES:= $(common_SRC_FILES)
+#include $(LOCAL_PATH)/../android-config.mk
+#LOCAL_C_INCLUDES:= $(common_C_INCLUDES)
+#LOCAL_PRELINK_MODULE:= false
+#LOCAL_STATIC_LIBRARIES += libcrypto-static
+#LOCAL_MODULE:= libssl-static
+#include $(BUILD_STATIC_LIBRARY)
+
+## dynamic library
+## =====================================================
 
 include $(CLEAR_VARS)
 LOCAL_SRC_FILES:= $(common_SRC_FILES)
 include $(LOCAL_PATH)/../android-config.mk
 LOCAL_C_INCLUDES:= $(common_C_INCLUDES)
 #LOCAL_PRELINK_MODULE:= false
-#LOCAL_STATIC_LIBRARIES += libcrypto-static
-LOCAL_MODULE:= libssl-static
-include $(BUILD_STATIC_LIBRARY)
-
-## dynamic library
-## =====================================================
-#
-#include $(CLEAR_VARS)
-#LOCAL_SRC_FILES:= $(common_SRC_FILES)
-#include $(LOCAL_PATH)/../android-config.mk
-#LOCAL_C_INCLUDES:= $(common_C_INCLUDES)
-##LOCAL_PRELINK_MODULE:= false
-#LOCAL_SHARED_LIBRARIES += libcrypto
-#LOCAL_MODULE:= libssl
-#include $(BUILD_SHARED_LIBRARY)
+LOCAL_SHARED_LIBRARIES += crypto
+LOCAL_MODULE:= ssl
+include $(BUILD_SHARED_LIBRARY)
