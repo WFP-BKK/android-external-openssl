@@ -1,14 +1,23 @@
 LOCAL_PATH:= $(call my-dir)
 
 ifeq ($(TARGET_ARCH),arm)
-	common_CFLAGS += -DOPENSSL_BN_ASM_MONT -DAES_ASM -DSHA1_ASM -DSHA256_ASM -DSHA512_ASM
-	common_SRC_FILES:= 0.9.9-dev/bn/armv4-mont.s \
-	                  0.9.9-dev/aes/aes-armv4.s \
-	                  0.9.9-dev/sha/sha1-armv4-large.s \
-	                  0.9.9-dev/sha/sha256-armv4.s \
-	                  0.9.9-dev/sha/sha512-armv4.s
+	common_CFLAGS := -DOPENSSL_BN_ASM_MONT -DAES_ASM -DSHA1_ASM \
+        -DSHA256_ASM -DSHA512_ASM
+	common_SRC_FILES:= \
+        aes/aes_cbc.c \
+        0.9.9-dev/bn/armv4-mont.s \
+        0.9.9-dev/aes/aes-armv4.s \
+        0.9.9-dev/sha/sha1-armv4-large.s \
+        0.9.9-dev/sha/sha256-armv4.s \
+        0.9.9-dev/sha/sha512-armv4.s
 else
-	common_SRC_FILES:= aes/aes_core.c
+    ifeq ($(TARGET_ARCH),x86)
+        common_CFLAGS := -DAES_ASM
+        common_SRC_FILES:= aes/asm/aes-586.s
+    else
+        common_CFLAGS :=
+        common_SRC_FILES:= aes/aes_core.c aes/aes_cbc.c
+    endif
 endif
 
 common_SRC_FILES+= \
@@ -27,7 +36,6 @@ common_SRC_FILES+= \
 	o_dir.c \
 	aes/aes_misc.c \
 	aes/aes_ecb.c \
-	aes/aes_cbc.c \
 	aes/aes_cfb.c \
 	aes/aes_ofb.c \
 	aes/aes_ctr.c \
@@ -429,7 +437,7 @@ common_SRC_FILES+= \
 	evp/m_ripemd.c \
 	evp/e_bf.c bf/bf_skey.c bf/bf_ecb.c bf/bf_enc.c bf/bf_cfb64.c bf/bf_ofb64.c
 
-common_CFLAGS += -DNO_WINDOWS_BRAINDEATH 
+common_CFLAGS += -DNO_WINDOWS_BRAINDEATH
 
 common_C_INCLUDES += \
 	$(LOCAL_PATH)/.. \
