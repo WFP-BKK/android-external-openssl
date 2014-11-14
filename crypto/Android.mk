@@ -471,5 +471,5 @@ LOCAL_SRC_FILES:= $(common_SRC_FILES)
 include $(LOCAL_PATH)/../android-config.mk
 LOCAL_C_INCLUDES:= $(common_C_INCLUDES)
 LOCAL_SHARED_LIBRARIES += $(common_SHARED_LIBRARIES)
-LOCAL_MODULE:= crypto
+LOCAL_MODULE:= crypto-openssl
 include $(BUILD_SHARED_LIBRARY)

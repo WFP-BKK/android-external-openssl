@@ -63,6 +63,6 @@ LOCAL_SRC_FILES:= $(common_SRC_FILES)
 include $(LOCAL_PATH)/../android-config.mk
 LOCAL_C_INCLUDES:= $(common_C_INCLUDES)
 #LOCAL_PRELINK_MODULE:= false
-LOCAL_SHARED_LIBRARIES += crypto
-LOCAL_MODULE:= ssl
+LOCAL_SHARED_LIBRARIES += crypto-openssl
+LOCAL_MODULE:= ssl-openssl
 include $(BUILD_SHARED_LIBRARY)
