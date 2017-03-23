@@ -445,9 +445,6 @@ common_C_INCLUDES += \
 
 # common_SHARED_LIBRARIES += libengines
 
-ifneq ($(TARGET_SIMULATOR),true)
-	common_SHARED_LIBRARIES += libdl
-endif
 
 
 # static library
